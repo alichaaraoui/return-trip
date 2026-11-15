@@ -4,6 +4,9 @@ import { defineConfig, loadEnv } from 'vite'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
+    // the online demo is served from alichaaraoui.com/return-trip/
+    base: env.VITE_BASE || '/',
+    build: { target: 'es2022' },
     plugins: [react()],
     server: {
       port: 5173,

@@ -1,3 +1,5 @@
+// The online demo answers /api calls from a snapshot instead of a server (see demo.js).
+if (import.meta.env.VITE_DEMO === 'true') await import('./demo.js')
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import 'leaflet/dist/leaflet.css'

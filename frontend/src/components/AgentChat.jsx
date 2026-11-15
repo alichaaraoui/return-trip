@@ -2,6 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 import { api } from '../api.js'
 
 const GREETING = "Ask me where trucks drive home empty and what they could carry. I'll show every tool I use."
+// The agent answers in light markdown: show **bold** as bold and keep line breaks.
+function Rich({ text }) {
+  return String(text ?? '').split('\n').map((line, i) => (
+    <div key={i} style={{ minHeight: line ? undefined : '0.6em' }}>
+      {line.split(/(\*\*[^*]+\*\*)/g).map((part, j) => (part.startsWith('**') && part.endsWith('**') ? <b key={j}>{part.slice(2, -2)}</b> : part))}
+    </div>
+  ))
+}
+
 const SUGGESTION = 'Which trucks drive home empty from Dallas, and what could they carry?'
 
 function ToolChip({ call }) {
@@ -52,7 +61,7 @@ export default function AgentChat({ onError }) {
       <div className="chat-log" ref={logRef}>
         {messages.map((m, i) => (
           <div key={i} className={`msg ${m.role}`}>
-            {m.text}
+            <Rich text={m.text} />
             {m.tools?.length > 0 && (
               <div className="chips">
                 {m.tools.map((call, j) => <ToolChip key={j} call={call} />)}

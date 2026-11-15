@@ -25,3 +25,4 @@ dist-ssr
 
 # planner caches (pulled Meridian data, routes, prices)
 frontend/tools/.cache/
+dist-demo/

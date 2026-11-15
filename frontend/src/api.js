@@ -271,7 +271,7 @@ function bookTour(tourId) {
   const week = db.weeks.find((w) => w.tour_id === tourId)
   if (week) week.legs.forEach((l) => { if (l.status === 'missing') l.status = 'quoted'; if (l.status === 'needs_carrier') l.status = 'covered' })
   return {
-    summary: `Tour ${tourId} booked: ${quotes.length} new ${quotes.length === 1 ? 'quote' : 'quotes'}, week offered to ${t.carrier.name}`,
+    summary: `Loop booked${quotes.length ? ` with ${quotes.length} new ${quotes.length === 1 ? 'quote' : 'quotes'}` : ''}. The week is offered to ${t.carrier.name}.`,
     tour_id: tourId,
     quote_ids: quotes,
     sell_total: t.totals.sell,
